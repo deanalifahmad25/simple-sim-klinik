@@ -1,3 +1,34 @@
+## How To Run:
+Download lalu ekstrak terlebih dahulu :)
+```bash
+# catatan
+develop : [
+    node version => 18.8.0,
+    php version => 8.1.10
+]
+
+# run
+composer install
+# lalu
+npm install install
+# lalu
+buat .env
+# lalu
+php artisan migrate --seed
+# lalu
+php artisan serve
+# lalu
+npm run dev
+```
+
+## Akun User:
+Email: superadmin@sipakar.com => superadmin (Seluruh akses) <br/>
+Email: pendaftaran@sipakar.com => pendaftaran <br/>
+Email: dokter@sipakar.com => dokter<br/>
+Email: perawat@sipakar.com => perawat <br/>
+Email: apoteker@sipakar.com => apoteker <br/>
+Semua Password Akun : secret123 <br/>
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
