@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('gender', ['L', 'P', 'N/A']);
             $table->string('phone_number');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

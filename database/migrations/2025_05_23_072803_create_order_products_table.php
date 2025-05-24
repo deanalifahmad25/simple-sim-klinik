@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('qty');
             $table->foreignId('product_id')->constrained('product_m')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

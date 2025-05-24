@@ -12,6 +12,13 @@ class Patient extends Model
 
     protected $table = 'patient_m';
 
+    protected $fillable = [
+        'name',
+        'birth_date',
+        'gender',
+        'phone_number'
+    ];
+
     public function registrations() {
         return $this->hasMany(Registration::class, 'patient_id');
     }

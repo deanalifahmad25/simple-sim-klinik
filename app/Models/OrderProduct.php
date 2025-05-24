@@ -13,6 +13,11 @@ class OrderProduct extends Model
 
     protected $table = 'orderproduct_t';
 
+    protected $fillable = [
+        'registration_number',
+        'qty'
+    ];
+
     public function registration() {
         return $this->belongsTo(Registration::class, 'registration_number', 'registration_number');
     }

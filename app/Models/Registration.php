@@ -13,6 +13,15 @@ class Registration extends Model
 
     protected $table = 'registration_t';
 
+    protected $fillable = [
+        'patient_id',
+        'registration_number',
+        'patient_weight',
+        'patient_blood_pressure',
+        'patient_complaint',
+        'diagnostic_result'
+    ];
+
     public function patient() {
         return $this->belongsTo(Patient::class, 'patient_id');
     }

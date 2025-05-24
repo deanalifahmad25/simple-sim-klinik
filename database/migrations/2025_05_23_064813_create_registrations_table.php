@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('patient_id')->constrained('patient_m')->onDelete('cascade');
             $table->string('registration_number')->unique();
-            $table->string('patient_weight');
-            $table->string('patient_blood_pressure');
-            $table->text('patient_complaint');
-            $table->text('diagnostic_result');
+            $table->string('patient_weight')->nullable();
+            $table->string('patient_blood_pressure')->nullable();
+            $table->text('patient_complaint')->nullable();
+            $table->text('diagnostic_result')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

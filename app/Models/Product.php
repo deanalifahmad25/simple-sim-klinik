@@ -12,6 +12,12 @@ class Product extends Model
 
     protected $table = 'product_m';
 
+    protected $fillable = [
+        'name',
+        'description',
+        'price'
+    ];
+
     public function orderProducts() {
         return $this->hasMany(OrderProduct::class, 'product_id', 'id');
     }
