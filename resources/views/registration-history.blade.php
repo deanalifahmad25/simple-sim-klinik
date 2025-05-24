@@ -13,28 +13,49 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('History Registrasi') }}
         </h2>
     </x-slot>
 
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="hidden mt-4 mb-4 sm:flex sm:justify-center">
-                    <div class="relative rounded-full px-3 py-1 text-sm/6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-                        Selamat Datang <span class="font-semibold text-blue-600"><span class="font-semibold text-blue-600 absolute inset-0" aria-hidden="true"></span>{{ Auth::user()->name }} <span aria-hidden="true">👋</span></span>
-                    </div>
-                </div>
-
                 <div class="px-6 mb-6 max-h-screen">
-                    <div class="flex items-center justify-between mb-2">
-                        <h3 class="text-base/7 font-semibold text-gray-900">Daftar Registrasi Pasien Hari Ini</h3>
+                    <div class="flex items-center justify-between my-2">
+                        <h3 class="text-base/7 font-semibold text-gray-900">Daftar Registrasi Pasien</h3>
 
-                        @if (Auth::user()->can('registration'))
-                            <a href="{{ route('registration') }}" class="inline-flex items-center px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                Registrasi
-                            </a>
-                        @endif
+                        <form method="POST" action="{{ route('search_registration_history') }}" class="flex items-center justify-between my-2 gap-2">
+                            @csrf
+
+                            <div>
+                                <x-input-label for="patient" :value="__('Pasien')" />
+
+                                <div class="grid grid-cols-1">
+                                    <select id="patient" name="patient" autocomplete="patient" class="block mt-1 w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-md shadow-sm">
+                                        <option disaled value="">-- Pilih Pasien --</option>
+                                        @forelse ($patient as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @empty
+                                            <option disabled>Belum Ada Pasien</option>
+                                        @endforelse
+                                    </select>
+                                </div>
+
+                                <x-input-error :messages="$errors->get('patient')" class="mt-2" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="registration_date" :value="__('Tanggal Registrasi')" />
+                                <input class="block mt-1 w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-md shadow-sm" type="date" id="registration_date" name="registration_date">
+                                <x-input-error :messages="$errors->get('registration_date')" class="mt-2" />
+                            </div>
+
+                            <div>
+                                <x-primary-button class="mt-6">
+                                    {{ __('Cari') }}
+                                </x-primary-button>
+                            </div>
+                        </form>
                     </div>
 
                     <div class="relative flex flex-col w-full h-full text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
@@ -127,33 +148,6 @@
                                                 <a href="{{ route('registration_history_detail', ['registration' => Illuminate\Support\Facades\Crypt::encrypt($item->registration_number)]) }}" class="text-sm text-blue-500 font-semibold ml-2">
                                                     Detail
                                                 </a>
-
-                                                @if (Auth::user()->can('vital_sign'))
-                                                    <a href="{{ route('vital_sign', ['registration' => Illuminate\Support\Facades\Crypt::encrypt($item->registration_number)]) }}" class="text-sm text-green-500 font-semibold ml-2">
-                                                        Vital Sign
-                                                    </a>
-                                                @endif
-
-                                                @if (Auth::user()->can('diagnose'))
-                                                    <a href="{{ route('diagnose', ['registration' => Illuminate\Support\Facades\Crypt::encrypt($item->registration_number)]) }}" class="text-sm text-green-500 font-semibold ml-2">
-                                                        Diagnosa
-                                                    </a>
-                                                @endif
-
-                                                @if (Auth::user()->can('order'))
-                                                    <a href="{{ route('order', ['registration' => Illuminate\Support\Facades\Crypt::encrypt($item->registration_number)]) }}" class="text-sm text-green-500 font-semibold ml-2">
-                                                        Order Obat
-                                                    </a>
-                                                @endif
-
-                                                @if (Auth::user()->can('registration'))
-                                                    <form method="post" action="{{ route('destroy_registration', ['patient' => Illuminate\Support\Facades\Crypt::encrypt($item->id)]) }}">
-                                                        @csrf
-                                                        @method('delete')
-
-                                                        <button type="submit" class="text-sm text-red-500 font-semibold ml-2">Hapus</button>
-                                                    </form>
-                                                @endif
                                             </td>
                                         </tr>
                                     @empty

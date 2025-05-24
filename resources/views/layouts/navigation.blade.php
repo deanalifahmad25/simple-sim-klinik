@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                        <x-application-logo-navbar class="block h-9 w-auto fill-current" />
                     </a>
                 </div>
 
@@ -15,6 +15,22 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    @if (Auth::user()->can('order'))
+                        <x-nav-link :href="route('product')" :active="request()->routeIs('product')">
+                            {{ __('Produk') }}
+                        </x-nav-link>
+                    @endif
+
+                    <x-nav-link :href="route('registration_history')" :active="request()->routeIs('registration_history')">
+                        {{ __('Riwayat Registrasi') }}
+                    </x-nav-link>
+
+                    @if (Auth::user()->hasRole('superadmin'))
+                        <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
+                            {{ __('User') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -35,7 +51,7 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                            {{ __('Profil') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -70,6 +86,22 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            @if (Auth::user()->can('order'))
+                <x-responsive-nav-link :href="route('product')" :active="request()->routeIs('product')">
+                    {{ __('Produk') }}
+                </x-responsive-nav-link>
+            @endif
+
+            <x-responsive-nav-link :href="route('registration_history')" :active="request()->routeIs('registration_history')">
+                {{ __('Riwayat Registrasi') }}
+            </x-responsive-nav-link>
+
+            @if (Auth::user()->can('superadmin'))
+                <x-responsive-nav-link :href="route('register')" :active="request()->routeIs('register')">
+                    {{ __('User') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
@@ -81,7 +113,7 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
+                    {{ __('Profil') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
