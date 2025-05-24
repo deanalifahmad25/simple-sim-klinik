@@ -10,7 +10,7 @@ develop : [
 # run
 composer install
 # lalu
-npm install install
+npm install
 # lalu
 buat .env
 # lalu
