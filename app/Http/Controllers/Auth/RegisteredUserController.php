@@ -20,7 +20,30 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $role = [
+            [
+                'name' => 'Super Admin',
+                'role' => 'superadmin',
+            ],
+            [
+                'name' => 'Pendaftaran',
+                'role' => 'registration',
+            ],
+            [
+                'name' => 'Dokter',
+                'role' => 'doctor',
+            ],
+            [
+                'name' => 'Perawat',
+                'role' => 'nurse',
+            ],
+            [
+                'name' => 'Apoteker',
+                'role' => 'pharmacist',
+            ],
+        ];
+
+        return view('auth.register', compact('role'));
     }
 
     /**
@@ -33,6 +56,7 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'role' => ['required', 'in:superadmin,registration,doctor,nurse,pharmacist'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -41,6 +65,8 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        $user->assignRole($request->role);
 
         event(new Registered($user));
 

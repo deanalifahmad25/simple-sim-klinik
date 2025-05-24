@@ -33,8 +33,8 @@ class RolePermissionSeeder extends Seeder
 
         Role::findByName('superadmin')->givePermissionTo(Permission::all());
         Role::findByName('registration')->givePermissionTo('registration');
-        Role::findByName('doctor')->givePermissionTo('vital_sign');
-        Role::findByName('nurse')->givePermissionTo('diagnose');
+        Role::findByName('doctor')->givePermissionTo('diagnose');
+        Role::findByName('nurse')->givePermissionTo('vital_sign');
         Role::findByName('pharmacist')->givePermissionTo('order');
     }
 }
